@@ -1,0 +1,27 @@
+extends layout.pug
+
+block number1 
+  if error
+    p.error Please write some tasks)
+
+  if success
+    p.success List of tasks:
+
+  if deleted
+    p.success1 There is no tasks yet
+
+  form.form(action='/add' method='POST')
+    input.input(type='text' placeholder='Add your tasks here...' name='todo')
+    button.btn Add  
+
+  div.todos
+    if todos.length
+      each todo in todos  
+        p.todo 
+          if todo.done
+            a.done(href=`/${ todo.id}/update`) #{ todo.description }
+          else 
+            a.undone(href=`/${ todo.id}/update`) #{ todo.description }
+          a.delete(href=`/${ todo.id }/delete`) Delete
+    else
+      p.todo No any tasks available
